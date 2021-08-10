@@ -8,4 +8,4 @@ To customize your pipeline, change the corresponding config:
 
 
 
-Based on CS231n PA.
+Based on CS231n [PA](https://cs231n.github.io/assignments2021/assignment3/#q1-image-captioning-with-vanilla-rnns-30-points).
