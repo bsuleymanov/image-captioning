@@ -1,0 +1,6 @@
+defaults:
+  - ../dataloader@dataloader: coco
+
+
+data_dir: "datasets/coco_captioning"
+mode: ???

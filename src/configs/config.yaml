@@ -1,0 +1,10 @@
+defaults:
+  - solver: solver
+  - data@data.train: coco
+  - training: coco
+  - logging: default_logging
+  - transformer@model.transformer: vanilla_transformer
+
+data:
+  train:
+    mode: "train"

@@ -1,0 +1,9 @@
+_target_: src.dataloader.COCOLoader
+data_dir: ${..data_dir}
+max_len: 50
+pca_features: true
+batch_size: 25
+mode: ${..mode}
+drop_last: false
+shuffle: true
+num_workers: 8
