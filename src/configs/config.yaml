@@ -1,6 +1,7 @@
 defaults:
   - solver: solver
   - data@data.train: coco
+  - data@data.val: coco
   - training: coco
   - logging: default_logging
   - transformer@model.transformer: vanilla_transformer
@@ -8,3 +9,8 @@ defaults:
 data:
   train:
     mode: "train"
+  val:
+    mode: "val"
+    dataloader:
+      batch_size: 2
+      max_samples: 2

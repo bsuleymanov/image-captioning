@@ -53,15 +53,16 @@ class CaptioningTransformer(nn.Module):
 
         return scores
 
-    def sample(self, features, max_len=30):
+    def sample(self, features, max_len, device):
         with torch.no_grad():
-            features = torch.tensor(features)
+            features = torch.tensor(features, device=device)
             batch_size = features.size(0)
 
-            captions = self._null * np.ones((batch_size, max_len), dtype=np.int32)
+            captions = self._null * torch.ones(batch_size, max_len,
+                                               dtype=torch.long, device=device)
 
-            partial_caption = self._start * np.ones(batch_size, dtype=np.int32)
-            partial_caption = torch.LongTensor(partial_caption)
+            partial_caption = self._start * torch.ones(batch_size,
+                                                       dtype=torch.long, device=device)
             partial_caption = partial_caption.unsqueeze(1)
 
             for t in range(max_len):
@@ -70,11 +71,11 @@ class CaptioningTransformer(nn.Module):
 
                 word = torch.argmax(output_logits, dim=1)
 
-                captions[:, t] = word.numpy()
+                captions[:, t] = word
                 word = word.unsqueeze(1)
                 partial_caption = torch.cat([partial_caption, word], dim=1)
 
-            return captions
+            return captions.cpu().numpy()
 
 class TransformerDecoderLayer(nn.Module):
     def __init__(self, input_dim, n_heads, dense_dim=2048, dropout_rate=0.1):

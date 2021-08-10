@@ -10,11 +10,13 @@ class COCODataset:
     def __init__(self,
                  data_dir="datasets/coco_captioning",
                  max_len=None,
+                 max_samples=None,
                  pca_features=True,
                  mode="train"):
         self.data_dir = Path(data_dir)
         self.mode = mode
         self.max_len = max_len
+        self.max_samples = max_samples
         self.pca_features = pca_features
         self.captions = None
         self.image_ids = None
@@ -70,17 +72,21 @@ class COCODataset:
         return captions, image_vecs, urls
 
     def __len__(self):
-        return len(self.captions)
+        if self.max_samples is None:
+            return len(self.captions)
+        return min(len(self.captions), self.max_samples)
 
 
 class COCOLoader:
     def __init__(self, data_dir="datasets/coco_captioning",
                  max_len=None,
+                 max_samples=None,
                  pca_features=True,
                  batch_size=8, mode="train",
                  drop_last=False, shuffle=True, num_workers=8):
         data_dir = Path(to_absolute_path(data_dir))
         dataset = COCODataset(data_dir=data_dir, max_len=max_len,
+                              max_samples=max_samples,
                               pca_features=pca_features, mode=mode)
         self.loader = torch.utils.data.DataLoader(
             dataset=dataset, batch_size=batch_size,

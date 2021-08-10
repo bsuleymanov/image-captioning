@@ -4,6 +4,7 @@ _target_: src.captioning_solver_transformer.CaptioningSolverTransformer
 _recursive_: false
 model: ${model.transformer}
 train_loader: ${data.train.dataloader}
+val_loader: ${data.val.dataloader}
 n_epochs: ${..training.n_epochs}
 optimizer: ${..training.optimizer}
 logger: ${..logging}

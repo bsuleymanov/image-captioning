@@ -2,6 +2,7 @@ import hydra
 from hydra.utils import instantiate
 from omegaconf import DictConfig
 from matplotlib import pyplot as plt
+from coco_utils import decode_captions
 
 
 @hydra.main(config_path="configs", config_name="config")
@@ -14,6 +15,8 @@ def train(cfg: DictConfig):
     plt.ylabel('Loss')
     plt.title('Training loss history')
     plt.show()
+
+    transformer_solver.sample()
 
 
 def main():

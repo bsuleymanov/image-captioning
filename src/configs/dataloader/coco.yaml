@@ -1,6 +1,7 @@
 _target_: src.dataloader.COCOLoader
 data_dir: ${..data_dir}
 max_len: 50
+max_samples: null
 pca_features: true
 batch_size: 25
 mode: ${..mode}
